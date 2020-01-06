@@ -9,6 +9,10 @@ import { HttpClient } from '@angular/common/http';
 })
 export class AppComponent {
   title = 'todomanager';
+
+  username: string = '';
+  password: string = '';
+
   http: HttpClient = null;
 
   constructor(http: HttpClient) {
@@ -16,6 +20,10 @@ export class AppComponent {
   }
 
   peido() {
-    this.http.get('https://api.github.com/users/carlospazuzu').subscribe((data) => console.log(data));
+    // this.http.get('http://localhost:8000/projects/').subscribe((data) => console.log(data));
+    this.http.post('http://localhost:8000/api/token/', {
+      username: this.username,
+      password: this.password
+    }).subscribe((data) => console.log(data));
   }
 }
