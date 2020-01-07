@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -14,16 +15,11 @@ export class AppComponent {
   password: string = '';
 
   http: HttpClient = null;
+  router: Router = null;
 
-  constructor(http: HttpClient) {
+  constructor(http: HttpClient, router: Router) {
     this.http = http;
+    this.router = router;
   }
-
-  peido() {
-    // this.http.get('http://localhost:8000/projects/').subscribe((data) => console.log(data));
-    this.http.post('http://localhost:8000/api/token/', {
-      username: this.username,
-      password: this.password
-    }).subscribe((data) => console.log(data));
-  }
+  
 }
