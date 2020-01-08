@@ -9,14 +9,14 @@ import { ProjectsComponent } from './projects/projects.component';
 // import { AppComponent } from './app.component';
 
 import { Routes, RouterModule } from '@angular/router';
-import { HeteroComponent } from './hetero/hetero.component';
+
 import { LoginComponent } from './login/login.component';
+import { ActivitiesComponent } from './activities/activities.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent },
-  { path: 'cu', component: AppComponent },
-  { path: 'hetero', component: HeteroComponent }  
+  { path: 'activities', component: ActivitiesComponent }
   // { path: 'hero/:id',      component: HeroDetailComponent }
 ];
 
@@ -24,8 +24,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     ProjectsComponent,
-    HeteroComponent,
-    LoginComponent
+    LoginComponent,
+    ActivitiesComponent
   ],
   imports: [
     BrowserModule,

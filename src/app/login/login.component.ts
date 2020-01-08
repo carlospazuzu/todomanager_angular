@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  peido() {
+  login() {
     // this.router.navigateByUrl('projects');        
     
     // this.http.get('http://localhost:8000/projects/').subscribe((data) => console.log(data));
