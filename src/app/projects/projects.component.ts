@@ -11,12 +11,15 @@ export class ProjectsComponent implements OnInit {
   projects: [] = null;
 
   constructor(private http: HttpClient) {
-    let id = sessionStorage.getItem('dados');
+    
+    let id = parseInt(sessionStorage.getItem('owner_id'));
 
     this.http.get('http://localhost:8000/projects/?owner=' + id).subscribe(data => {
-        this.projects = data.results;
+        this.projects = data['results'];
+        
       }      
     );
+    
    }
 
   ngOnInit() {

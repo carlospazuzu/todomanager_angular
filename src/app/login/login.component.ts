@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
       username: this.username,
       password: this.password
     }).subscribe((data) => {      
-      sessionStorage.setItem('dados', data.id);
+      sessionStorage.setItem('owner_id', data['id']);      
       this.router.navigate(['projects']);
     },
                   err => alert('DEU BOSTA') );
