@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
       password: this.password
     }).subscribe((data) => {      
       sessionStorage.setItem('owner_id', data['id']);      
+      sessionStorage.setItem('access', data['access']);
+      sessionStorage.setItem('token', data['token']);
+      sessionStorage.setItem('refresh', data['refresh']);
       this.router.navigate(['projects']);
     },
                   err => alert('DEU BOSTA') );

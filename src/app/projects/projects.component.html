@@ -8,7 +8,11 @@
           <span class="new badge" data-badge-caption="">#{{labelNamesDict[p.label]}}</span>
         </div>
         <div class="card-action">
-          <a routerLink="/activities" (click)="openActivitiesPage(p.id)">Acessar Projeto</a>          
+          <a routerLink="/activities" (click)="openActivitiesPage(p.id)">Acessar Projeto</a>  
+                      
+            <button (click)="deleteProject(p.id)" class="secondary-content">
+              <i class="material-icons">delete</i>
+            </button>                
         </div>
       </div>
     </div>

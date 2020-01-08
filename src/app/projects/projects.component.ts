@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +14,13 @@ export class ProjectsComponent implements OnInit {
   labelNamesDict = {};
 
   constructor(private http: HttpClient, private router: Router) {
-    
+    this.refreshProjects();  
+  }
+
+  ngOnInit() {
+  }
+
+  refreshProjects() {
     let id = parseInt(sessionStorage.getItem('owner_id'));
 
     this.http.get('http://localhost:8000/projects/?owner=' + id).subscribe(data => {
@@ -26,12 +32,25 @@ export class ProjectsComponent implements OnInit {
           });
         }
       }      
-    );    
+    );
+  }
 
-    console.log(this.labelNamesDict);
-   }
+  deleteProject(projectId: Number) {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      })
+    };
 
-  ngOnInit() {
+    this.http.delete('http://localhost:8000/projects/' + projectId, httpOptions).subscribe(
+      data => {
+        console.log(data);
+        this.projects = [];
+        this.refreshProjects();
+      },
+      err => console.log(err)
+    );
   }
 
   openActivitiesPage(projectId: string) {
