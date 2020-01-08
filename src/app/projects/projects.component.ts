@@ -53,6 +53,10 @@ export class ProjectsComponent implements OnInit {
     );
   }
 
+  createNewProject() {
+    this.router.navigate(['createproject']);
+  }
+
   openActivitiesPage(projectId: string) {
     sessionStorage.setItem('project_id', projectId);
   }

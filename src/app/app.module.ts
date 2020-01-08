@@ -12,11 +12,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { ActivitiesComponent } from './activities/activities.component';
+import { CreateprojectComponent } from './createproject/createproject.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent },
-  { path: 'activities', component: ActivitiesComponent }
+  { path: 'activities', component: ActivitiesComponent },
+  { path: 'createproject', component: CreateprojectComponent }
   // { path: 'hero/:id',      component: HeroDetailComponent }
 ];
 
@@ -25,7 +27,8 @@ const appRoutes: Routes = [
     AppComponent,
     ProjectsComponent,
     LoginComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    CreateprojectComponent
   ],
   imports: [
     BrowserModule,
