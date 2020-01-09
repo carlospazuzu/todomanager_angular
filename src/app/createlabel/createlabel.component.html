@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="col s12">
+      <div class="row">
+          <div class="input-field col s6">
+              <input [(ngModel)]="labelName" placeholder="Digite o nome da Etiqueta" type="text" class="validate" />
+              <a (click)="createNewLabel()" onclick="M.toast({html: 'Nova Label Criada!'})" class="waves-effect waves-light btn">Criar nova Etiqueta</a>                
+          </div>
+          
+      </div>
+  </div>
+</div>

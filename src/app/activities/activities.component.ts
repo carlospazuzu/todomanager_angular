@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
@@ -10,11 +11,15 @@ export class ActivitiesComponent implements OnInit {
 
   activities: any[] = [];
 
-  constructor(private http: HttpClient) { 
+  constructor(private http: HttpClient, private router: Router) { 
     this.refreshActivities();
   }
 
   ngOnInit() {
+  }
+
+  createNewActivity() {
+    this.router.navigate(['createactivity']);
   }
 
   refreshActivities() {

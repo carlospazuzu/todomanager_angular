@@ -13,12 +13,16 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './login/login.component';
 import { ActivitiesComponent } from './activities/activities.component';
 import { CreateprojectComponent } from './createproject/createproject.component';
+import { CreateactivityComponent } from './createactivity/createactivity.component';
+import { CreatelabelComponent } from './createlabel/createlabel.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'projects', component: ProjectsComponent },
   { path: 'activities', component: ActivitiesComponent },
-  { path: 'createproject', component: CreateprojectComponent }
+  { path: 'createproject', component: CreateprojectComponent },
+  { path: 'createactivity', component: CreateactivityComponent },
+  { path: 'createlabel', component: CreatelabelComponent }
   // { path: 'hero/:id',      component: HeroDetailComponent }
 ];
 
@@ -28,7 +32,9 @@ const appRoutes: Routes = [
     ProjectsComponent,
     LoginComponent,
     ActivitiesComponent,
-    CreateprojectComponent
+    CreateprojectComponent,
+    CreateactivityComponent,
+    CreatelabelComponent
   ],
   imports: [
     BrowserModule,

@@ -23,7 +23,7 @@ export class ProjectsComponent implements OnInit {
   refreshProjects() {
     let id = parseInt(sessionStorage.getItem('owner_id'));
 
-    this.http.get('http://localhost:8000/projects/?owner=' + id).subscribe(data => {
+    this.http.get('http://localhost:8000/projects/?owner=' + id + '&limit=999').subscribe(data => {
         this.projects = data['results'];   
         for (let p of this.projects) {
           let name: string = p['label'];
@@ -57,8 +57,12 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['createproject']);
   }
 
-  openActivitiesPage(projectId: string) {
-    sessionStorage.setItem('project_id', projectId);
+  createNewLabel() {
+    this.router.navigate(['createlabel']);
+  }
+
+  openActivitiesPage(projectUrl: string) {
+    sessionStorage.setItem('project_url', projectUrl);
   }
 
   getPORRA(labelUrl) {

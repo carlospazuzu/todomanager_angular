@@ -1,6 +1,7 @@
 <h1>Projetos</h1>
 
-<a (click)="createNewProject()" class="btn-floating btn-large waves-effect waves-light red project-button"><i class="material-icons">add</i></a>
+<a (click)="createNewProject()" class="btn-floating btn-large waves-effect waves-light blue project-button"><i class="material-icons">add</i></a>
+<a (click)="createNewLabel()" class="btn-floating btn-large waves-effect waves-light green project-button-label"><i class="material-icons">add</i></a>
 
 <div class="row">
     <div class="col s12 m6">
@@ -10,7 +11,7 @@
           <span class="new badge" data-badge-caption="">#{{labelNamesDict[p.label]}}</span>
         </div>
         <div class="card-action">
-          <a routerLink="/activities" (click)="openActivitiesPage(p.id)">Acessar Projeto</a>  
+          <a routerLink="/activities" (click)="openActivitiesPage(p.url)">Acessar Projeto</a>  
                       
             <button (click)="deleteProject(p.id)" class="secondary-content">
               <i class="material-icons">delete</i>
