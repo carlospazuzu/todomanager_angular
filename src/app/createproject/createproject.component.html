@@ -5,13 +5,36 @@
         <div class="row">
             <div class="input-field col s6">
                 <input [(ngModel)]="projectName" placeholder="Digite o nome do Projeto" type="text" class="validate" />
+                
+                <div class="input-field col s12">
+                    <select>         
+                        <option value="" disabled selected>Choose your option</option>             
+                        <option *ngFor="let label of labelList" value={{label.url}}>{{label.name}}</option>
+                    </select>                    
+                    <label>Materialize Select</label>
+                </div>
+                
+                <div class="input-field col s12">
+                    <select>
+                      <option value="" disabled selected>Choose your option</option>
+                      <option value="1">Option 1</option>
+                      <option value="2">Option 2</option>
+                      <option value="3">Option 3</option>
+                    </select>
+                    <label>Materialize Select</label>
+                  </div>
+
+                
                 <a (click)="createNewProject()" onclick="M.toast({html: 'Projeto Criado!'})" class="waves-effect waves-light btn">Criar novo Projeto</a>                
             </div>
         </div>
     </div>
 </div>
 
+<select>                   
+    <option *ngFor="let label of labelList" value="{{label.url}}">{{label.name}}</option>
+</select>  
 
 <script>
-     M.toast({html: 'I am a toast!'})
+     M.toast({html: 'I am a toast!'});
 </script>

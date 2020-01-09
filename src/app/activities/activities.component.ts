@@ -23,8 +23,8 @@ export class ActivitiesComponent implements OnInit {
   }
 
   refreshActivities() {
-    let projectId = sessionStorage.getItem('project_id');
-    this.http.get('http://localhost:8000/projects/' + projectId).subscribe( (data) => {
+    let projectUrl = sessionStorage.getItem('project_url');
+    this.http.get(projectUrl).subscribe( (data) => {
         data['atividades'].forEach(element => {
           this.http.get(element).subscribe((data) => {
                this.activities.push(data);               

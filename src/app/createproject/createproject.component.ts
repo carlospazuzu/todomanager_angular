@@ -10,10 +10,18 @@ import { Component, OnInit } from '@angular/core';
 export class CreateprojectComponent implements OnInit {
 
   projectName: string = '';
+  labelList: [] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {     
+    this.http.get('http://localhost:8000/labels').subscribe(data => {
+      console.log('SUPER BUNDA');
+      this.labelList = data['results'];
+      console.log(data['results']);      
+    });
+  }
 
   ngOnInit() {
+    
   }
 
   createNewProject() {
