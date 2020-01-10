@@ -57,16 +57,8 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['createproject']);
   }
 
-  createNewLabel() {
-    this.router.navigate(['createlabel']);
-  }
-
   openActivitiesPage(projectUrl: string) {
     sessionStorage.setItem('project_url', projectUrl);
-  }
-
-  getPORRA(labelUrl) {
-    return this.labelNamesDict[labelUrl];
   }
 
   getLabelName(labelUrl) {

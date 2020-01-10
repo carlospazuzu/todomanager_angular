@@ -11,10 +11,10 @@ export class CreateprojectComponent implements OnInit {
 
   projectName: string = '';
   labelList: [] = [];
+  labelUrl: string = '';
 
   constructor(private http: HttpClient, private router: Router) {     
-    this.http.get('http://localhost:8000/labels').subscribe(data => {
-      console.log('SUPER BUNDA');
+    this.http.get('http://localhost:8000/labels/?limit=999').subscribe(data => {
       this.labelList = data['results'];
       console.log(data['results']);      
     });
@@ -32,9 +32,12 @@ export class CreateprojectComponent implements OnInit {
       })
     };
 
-    this.http.post('http://localhost:8000/projects/', {name: this.projectName, atividades: []}, httpOptions).subscribe(data => {
+    this.http.post('http://localhost:8000/projects/', {name: this.projectName, atividades: [], label: this.labelUrl}, httpOptions).subscribe(data => {
       this.router.navigate(['projects'])
     });
   }
 
+  createNewLabel() {
+    this.router.navigate(['createlabel']);
+  }
 }

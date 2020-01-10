@@ -5,12 +5,19 @@
         <div class="row">
             <div class="input-field col s6">
                 <input [(ngModel)]="projectName" placeholder="Digite o nome do Projeto" type="text" class="validate" />
+                <div class="row">
+                    <div class="col s10">
+                        <select class="browser-default" [(ngModel)]="labelUrl">         
+                            <option value="" disabled selected>Selecione uma etiqueta</option>             
+                            <option *ngFor="let label of labelList" value="{{label.url}}">{{label.name}}</option>
+                        </select>                    
+                        <!--<label>Selecione a etiqueta</label>-->
+                    </div>
+                    <div class="col s2">
+                        <a (click)="createNewLabel()" class="btn-floating btn-large waves-effect waves-light green project-button-label"><i class="material-icons">add</i></a>
+                    </div>
+                </div>
                 
-                <select class="browser-default">         
-                    <option value="" disabled selected>Selecione uma etiqueta</option>             
-                    <option *ngFor="let label of labelList" value="{{label.url}}">{{label.name}}</option>
-                </select>                    
-                <!--<label>Selecione a etiqueta</label>-->
                 
                 <a (click)="createNewProject()" onclick="M.toast({html: 'Projeto Criado!'})" class="waves-effect waves-light btn">Criar novo Projeto</a>                
             </div>
