@@ -9,7 +9,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class ActivitiesComponent implements OnInit {
 
-  activities: any[] = [];
+  concluded_activities: any[] = [];
+  not_concluded_activities: any[] = [];
 
   constructor(private http: HttpClient, private router: Router) { 
     this.refreshActivities();
@@ -27,7 +28,12 @@ export class ActivitiesComponent implements OnInit {
     this.http.get(projectUrl).subscribe( (data) => {
         data['atividades'].forEach(element => {
           this.http.get(element).subscribe((data) => {
-               this.activities.push(data);               
+            if (data['was_concluded']) {
+              this.concluded_activities.push(data);
+            }else{
+              this.not_concluded_activities.push(data);
+            }
+                              
           })
         });
       }
@@ -45,7 +51,8 @@ export class ActivitiesComponent implements OnInit {
     this.http.delete('http://localhost:8000/activities/' + id, httpOptions).subscribe(
       data => {
         console.log(data);
-        this.activities = [];
+        this.concluded_activities = [];
+        this.not_concluded_activities = [];
         this.refreshActivities();
       },
       err => console.log(err)
