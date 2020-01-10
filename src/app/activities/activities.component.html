@@ -1,27 +1,36 @@
-<h1>Atividades</h1>
+<div class="container">
+  <h1>Atividades</h1>
 
-<a (click)="createNewActivity()" class="btn-floating btn-large waves-effect waves-light red project-button"><i class="material-icons">add</i></a>
-
-<ul class="collection">
-  <li class="collection-header"><h4>Não concluídas</h4></li>
-  <li *ngFor="let activity of not_concluded_activities" class="collection-item">    
-    <div>
-      {{activity.name}}
-      <button (click)="deleteActivity(activity.id)" class="secondary-content">
-        <i class="material-icons">delete</i>
-      </button>      
-    </div>
-  </li>
-</ul>
-<ul class="collection">
-  <li class="collection-header"><h4>Concluídas</h4></li>
-  <li *ngFor="let activity of concluded_activities" class="collection-item">    
-    <div>
-      {{activity.name}}
-      <button (click)="deleteActivity(activity.id)" class="secondary-content">
-        <i class="material-icons">delete</i>
-      </button>      
-    </div>
-  </li>
-</ul>
-            
+  <a (click)="createNewActivity()" class="btn-floating btn-large waves-effect waves-light red project-button"><i class="material-icons">add</i></a>
+    <h4>Não concluídas</h4>
+    <ul class="collection">
+      <li class="collection-header"></li>
+      
+      <li *ngFor="let activity of not_concluded_activities" class="collection-item">    
+        
+          {{activity.name}}
+          <button (click)="deleteActivity(activity.id)" class="secondary-content">
+            <i class="material-icons">delete</i>
+          </button>
+          <button (click)="goToUpdateActivity(activity.id)" class="secondary-content">
+            <i class="material-icons">edit</i>
+          </button>
+          <button (click)="concludeActivity(activity.id)" class="secondary-content">
+            <i class="material-icons">check_box_outline_blank</i>
+          </button>     
+      </li>
+    </ul>
+    <h4>Concluídas</h4>
+    <ul class="collection">
+      <li class="collection-header"></li>
+      <li *ngFor="let activity of concluded_activities" class="collection-item">    
+        {{activity.name}}
+        <button (click)="deleteActivity(activity.id)" class="secondary-content">
+          <i class="material-icons">delete</i>
+        </button>      
+        <button (click)="unconcludeActivity(activity.id)" class="secondary-content">
+          <i class="material-icons">check_box</i>
+        </button>
+      </li>
+    </ul>
+</div>          

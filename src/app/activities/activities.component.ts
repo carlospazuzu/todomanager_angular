@@ -40,6 +40,43 @@ export class ActivitiesComponent implements OnInit {
     );
   }
 
+  concludeActivity(id: Number){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      })
+    };
+    this.http.patch('http://localhost:8000/activities/' + id, {was_concluded: true}, httpOptions).subscribe(
+      data => {
+        this.concluded_activities = [];
+        this.not_concluded_activities = [];
+        this.refreshActivities();
+      }
+    )
+  }
+
+  unconcludeActivity(id: Number){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+      })
+    };
+    this.http.patch('http://localhost:8000/activities/' + id, {was_concluded: false}, httpOptions).subscribe(
+      data => {
+        this.concluded_activities = [];
+        this.not_concluded_activities = [];
+        this.refreshActivities();
+      }
+    )
+  }
+
+  goToUpdateActivity(id: string){
+    sessionStorage.setItem('activityId', id);
+    this.router.navigate(['updateactivity']);
+  }
+
   deleteActivity(id: Number) {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -50,12 +87,10 @@ export class ActivitiesComponent implements OnInit {
 
     this.http.delete('http://localhost:8000/activities/' + id, httpOptions).subscribe(
       data => {
-        console.log(data);
         this.concluded_activities = [];
         this.not_concluded_activities = [];
         this.refreshActivities();
-      },
-      err => console.log(err)
+      }
     );
   }
 

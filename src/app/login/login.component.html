@@ -1,10 +1,12 @@
-<div class="row center-align">
-  <h1>LOGIN</h1>
-  <div class="col s12">
-    <div class="input-field col-s6">
-      <input [(ngModel)]="username" type="text" placeholder="usuario" />
-      <input [(ngModel)]="password" type="password" placeholder="senha" />
-      <a (click)="login()" class="waves-effect waves-light btn">Entrar</a>
+<div class="container">
+  <div class="row center-align">
+    <h1>LOGIN</h1>
+    <div class="col s6 offset-s3">
+      <div class="input-field col-s6">
+        <input [(ngModel)]="username" type="text" placeholder="usuario" />
+        <input [(ngModel)]="password" type="password" placeholder="senha" />
+        <a (click)="login()" class="waves-effect waves-light btn">Entrar</a>
+      </div>
     </div>
   </div>
 </div>

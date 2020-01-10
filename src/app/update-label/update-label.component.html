@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+      <div class="col s12">
+          <div class="row">
+              <div class="input-field col s6">
+                  <input [(ngModel)]="labelName" placeholder="Digite o novo nome da Etiqueta" type="text" class="validate" />
+                  <a (click)="updateLabel()" onclick="M.toast({html: 'Etiqueta renomeada!'})" class="waves-effect waves-light btn">Renomear Etiqueta</a>                
+              </div>
+          </div>
+      </div>
+  </div>
+</div>

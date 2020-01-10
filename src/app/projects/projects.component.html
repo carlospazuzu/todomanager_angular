@@ -1,21 +1,28 @@
-<h1>Projetos</h1>
+<div class="container">
+  <h1>Projetos</h1>
 
-<a (click)="createNewProject()" class="btn-floating btn-large waves-effect waves-light blue project-button"><i class="material-icons">add</i></a>
+  <a (click)="createNewProject()" class="btn-floating btn-large waves-effect waves-light blue project-button"><i class="material-icons">add</i></a>
 
-<div class="row">
-    <div class="col s12 m6">
-      <div *ngFor="let p of projects" class="card white">
-        <div class="card-content teal-text">
-          <span class="card-title">{{p.name}}</span>  
-          <span class="new badge" data-badge-caption="">#{{labelNamesDict[p.label]}}</span>
-        </div>
-        <div class="card-action">
-          <a routerLink="/activities" (click)="openActivitiesPage(p.url)">Acessar Projeto</a>  
-                      
-            <button (click)="deleteProject(p.id)" class="secondary-content">
-              <i class="material-icons">delete</i>
-            </button>                
+  <div class="row">
+      <div class="col s12">
+        <div *ngFor="let p of projects" class="card white">
+          <div class="card-content teal-text">
+            <span class="card-title">{{p.name}}</span>
+            <button (click)="goToUpdateLabel(p.label)" class="secondary-content">
+              <span class="new badge" data-badge-caption="">#{{labelNamesDict[p.label]}}</span>
+            </button>
+          </div>
+          <div class="card-action">
+            <a routerLink="/activities" (click)="openActivitiesPage(p.url)">Acessar Projeto</a>  
+                        
+              <button (click)="deleteProject(p.id)" class="secondary-content">
+                <i class="material-icons">delete</i>
+              </button>
+              <button (click)="goToUpdateProject(p.id)" class="secondary-content">
+                <i class="material-icons">edit</i>
+              </button>             
+          </div>
         </div>
       </div>
-    </div>
+  </div>
 </div>

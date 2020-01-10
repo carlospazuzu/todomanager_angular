@@ -57,6 +57,18 @@ export class ProjectsComponent implements OnInit {
     this.router.navigate(['createproject']);
   }
 
+  goToUpdateProject(id: string) {
+    sessionStorage.setItem('projectId', id);
+    this.router.navigate(['updateproject']);
+  }
+
+  goToUpdateLabel(labelUrl: string) {
+    this.http.get(labelUrl).subscribe(data => {
+      sessionStorage.setItem('labelId', data['id']);
+      this.router.navigate(['updatelabel']);
+    });
+  }
+
   openActivitiesPage(projectUrl: string) {
     sessionStorage.setItem('project_url', projectUrl);
   }

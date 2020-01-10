@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+      <div class="col s12">
+          <div class="row">
+              <div class="input-field col s6">
+                  <input [(ngModel)]="activityName" placeholder="Digite o novo nome da Atividade" type="text" class="validate" />
+                  <a (click)="updateActivity()" onclick="M.toast({html: 'Atividade renomeada!'})" class="waves-effect waves-light btn">Renomear Atividade</a>                
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
