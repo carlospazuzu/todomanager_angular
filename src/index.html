@@ -21,13 +21,14 @@
   
 </head>
 <body>
-  <app-root></app-root> 
-  <script>    
+  <app-root></app-root>
+  <body>
+  <script>
     $(document).ready(function(){
       console.log('super cu');
-      $('select').formSelect();      
+      $('select').not('.disabled').formSelect();      
     });
-  </script>  
+  </script>
 </body>
 
 </html>
