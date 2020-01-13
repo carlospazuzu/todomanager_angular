@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,21 +11,22 @@ export class CreatelabelComponent implements OnInit {
 
   labelName: string = null;
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router) { 
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+  }
 
   ngOnInit() {
   }
 
   createNewLabel() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
-    this.http.post('http://localhost:8000/labels/', {name: this.labelName}, httpOptions).subscribe(data =>{
-    console.log(data)  
-    this.router.navigate(['createproject'])
+
+    let url = 'http://localhost:8000/labels/';
+    let payload = {name: this.labelName};
+   
+    this.httpService.post(url, payload).subscribe(data =>{
+      // console.log(data)  
+      this.router.navigate(['createproject'])
     });
   }
 

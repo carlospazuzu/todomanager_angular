@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -13,7 +13,9 @@ export class ProjectsComponent implements OnInit {
   // labelNamesArray: string[] = [];
   labelNamesDict = {};
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router) {
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
     this.refreshProjects();  
   }
 
@@ -23,11 +25,11 @@ export class ProjectsComponent implements OnInit {
   refreshProjects() {
     let id = parseInt(sessionStorage.getItem('owner_id'));
 
-    this.http.get('http://localhost:8000/projects/?owner=' + id + '&limit=999').subscribe(data => {
+    this.httpService.get('http://localhost:8000/projects/?owner=' + id + '&limit=999').subscribe(data => {
         this.projects = data['results'];   
         for (let p of this.projects) {
           let name: string = p['label'];
-          this.http.get(p['label']).subscribe(data => {
+          this.httpService.get(p['label']).subscribe(data => {
             this.labelNamesDict[name] = data['name'];
           });
         }
@@ -36,14 +38,10 @@ export class ProjectsComponent implements OnInit {
   }
 
   deleteProject(projectId: Number) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
+    
+    let url = 'http://localhost:8000/projects/' + projectId;
 
-    this.http.delete('http://localhost:8000/projects/' + projectId, httpOptions).subscribe(
+    this.httpService.delete(url).subscribe(
       data => {
         console.log(data);
         this.projects = [];
@@ -63,7 +61,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   goToUpdateLabel(labelUrl: string) {
-    this.http.get(labelUrl).subscribe(data => {
+    this.httpService.get(labelUrl).subscribe(data => {
       sessionStorage.setItem('labelId', data['id']);
       this.router.navigate(['updatelabel']);
     });
@@ -74,7 +72,7 @@ export class ProjectsComponent implements OnInit {
   }
 
   getLabelName(labelUrl) {
-    this.http.get(labelUrl)
+    this.httpService.get(labelUrl)
                   .subscribe(res => {
                     this.labelNamesDict[labelUrl[labelUrl.length - 1]] = res['name'];
                   });

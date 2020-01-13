@@ -1,6 +1,6 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-activities',
@@ -12,7 +12,10 @@ export class ActivitiesComponent implements OnInit {
   concluded_activities: any[] = [];
   not_concluded_activities: any[] = [];
 
-  constructor(private http: HttpClient, private router: Router) { 
+  constructor(private httpService: HttpService, private router: Router) { 
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+      
     this.refreshActivities();
   }
 
@@ -25,9 +28,9 @@ export class ActivitiesComponent implements OnInit {
 
   refreshActivities() {
     let projectUrl = sessionStorage.getItem('project_url');
-    this.http.get(projectUrl).subscribe( (data) => {
+    this.httpService.get(projectUrl).subscribe( (data) => {
         data['atividades'].forEach(element => {
-          this.http.get(element).subscribe((data) => {
+          this.httpService.get(element).subscribe((data) => {
             if (data['was_concluded']) {
               this.concluded_activities.push(data);
             }else{
@@ -41,13 +44,11 @@ export class ActivitiesComponent implements OnInit {
   }
 
   concludeActivity(id: Number){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
-    this.http.patch('http://localhost:8000/activities/' + id, {was_concluded: true}, httpOptions).subscribe(
+
+    let url = 'http://localhost:8000/activities/' + id;
+    let payload = {was_concluded: true};
+    
+    this.httpService.patch(url, payload).subscribe(
       data => {
         this.concluded_activities = [];
         this.not_concluded_activities = [];
@@ -57,13 +58,11 @@ export class ActivitiesComponent implements OnInit {
   }
 
   unconcludeActivity(id: Number){
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
-    this.http.patch('http://localhost:8000/activities/' + id, {was_concluded: false}, httpOptions).subscribe(
+    
+    let url = 'http://localhost:8000/activities/' + id;
+    let payload = {was_concluded: false};
+
+    this.httpService.patch(url, payload).subscribe(
       data => {
         this.concluded_activities = [];
         this.not_concluded_activities = [];
@@ -78,14 +77,9 @@ export class ActivitiesComponent implements OnInit {
   }
 
   deleteActivity(id: Number) {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
-
-    this.http.delete('http://localhost:8000/activities/' + id, httpOptions).subscribe(
+    let url = 'http://localhost:8000/activities/' + id;
+    
+    this.httpService.delete(url).subscribe(
       data => {
         this.concluded_activities = [];
         this.not_concluded_activities = [];

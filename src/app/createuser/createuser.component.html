@@ -1,12 +1,12 @@
 <div class="container">
   <div class="row center-align">
-    <h1>Todo Manager</h1>
+    <h1>NOVO USUARIO</h1>
     <div class="col s6 offset-s3">
       <div class="input-field col-s6">
         <input [(ngModel)]="username" type="text" placeholder="usuario" />
         <input [(ngModel)]="password" type="password" placeholder="senha" />
-        <a (click)="login()" class="waves-effect waves-light btn">Entrar</a>
-        <a (click)="createUser()" class="waves-effect waves-light blue btn" style="margin-left: 20px">Criar Usuário</a>
+        <input [(ngModel)]="email" type="email" placeholder="e-mail" />
+        <a (click)="createUser()" class="waves-effect waves-light btn">Criar Usuario</a>
       </div>
     </div>
   </div>

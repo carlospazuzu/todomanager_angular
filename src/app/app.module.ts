@@ -18,6 +18,7 @@ import { CreatelabelComponent } from './createlabel/createlabel.component';
 import { UpdateActivityComponent } from './update-activity/update-activity.component';
 import { UpdateprojectComponent } from './updateproject/updateproject.component';
 import { UpdateLabelComponent } from './update-label/update-label.component';
+import { CreateuserComponent } from './createuser/createuser.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
   { path: 'createlabel', component: CreatelabelComponent },
   { path: 'updateactivity', component: UpdateActivityComponent },
   { path: 'updateproject', component: UpdateprojectComponent },
-  { path: 'updatelabel', component: UpdateLabelComponent }
+  { path: 'updatelabel', component: UpdateLabelComponent },
+  { path: 'createuser', component: CreateuserComponent }
 
 
 
@@ -46,7 +48,8 @@ const appRoutes: Routes = [
     CreatelabelComponent,
     UpdateActivityComponent,
     UpdateprojectComponent,
-    UpdateLabelComponent
+    UpdateLabelComponent,
+    CreateuserComponent
   ],
   imports: [
     BrowserModule,

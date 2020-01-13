@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -11,9 +11,12 @@ export class UpdateActivityComponent implements OnInit {
 
   activityName: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router) {
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+      
     let id = sessionStorage.getItem('activityId');
-    this.http.get('http://localhost:8000/activities/' + id).subscribe(data => {
+    this.httpService.get('http://localhost:8000/activities/' + id).subscribe(data => {
       console.log(data);
       this.activityName = data['name'];
     });
@@ -23,14 +26,12 @@ export class UpdateActivityComponent implements OnInit {
   }
 
   updateActivity() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
     let id = sessionStorage.getItem('activityId');
-    this.http.patch('http://localhost:8000/activities/' + id, {name: this.activityName}, httpOptions).subscribe(data => {
+
+    let url = 'http://localhost:8000/activities/' + id;
+    let payload = {name: this.activityName};
+
+    this.httpService.patch(url, payload).subscribe(data => {
       this.router.navigate(['activities']);
     })
   }

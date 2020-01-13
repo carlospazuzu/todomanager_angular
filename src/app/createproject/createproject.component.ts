@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -13,10 +13,13 @@ export class CreateprojectComponent implements OnInit {
   labelList: [] = [];
   labelUrl: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {     
-    this.http.get('http://localhost:8000/labels/?limit=999').subscribe(data => {
+  constructor(private httpService: HttpService, private router: Router) {    
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+       
+    this.httpService.get('http://localhost:8000/labels/?limit=999').subscribe(data => {
       this.labelList = data['results'];
-      console.log(data['results']);      
+      // console.log(data['results']);      
     });
   }
 
@@ -25,14 +28,11 @@ export class CreateprojectComponent implements OnInit {
   }
 
   createNewProject() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
 
-    this.http.post('http://localhost:8000/projects/', {name: this.projectName, atividades: [], label: this.labelUrl}, httpOptions).subscribe(data => {
+    let url = 'http://localhost:8000/projects/';
+    let payload = {name: this.projectName, atividades: [], label: this.labelUrl};
+
+    this.httpService.post(url, payload).subscribe(data => {
       this.router.navigate(['projects'])
     });
   }

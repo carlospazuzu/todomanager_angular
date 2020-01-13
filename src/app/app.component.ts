@@ -17,9 +17,24 @@ export class AppComponent {
   http: HttpClient = null;
   router: Router = null;
 
+  currentUrl = '';
+
   constructor(http: HttpClient, router: Router) {
     this.http = http;
     this.router = router;
+
+    this.currentUrl = this.router.url;
+
+    console.log(this.router.url);
+  }
+
+  goToProjects() {
+    this.router.navigate(['projects'])
+  }
+
+  logout() {
+    this.router.navigate([''])
+    sessionStorage.setItem('logged', 'NAO');
   }
   
 }

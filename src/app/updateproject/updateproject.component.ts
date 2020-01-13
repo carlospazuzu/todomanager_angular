@@ -1,6 +1,6 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-updateproject',
@@ -11,9 +11,12 @@ export class UpdateprojectComponent implements OnInit {
 
   projectName: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router) {
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+      
     let id = sessionStorage.getItem('projectId');
-    this.http.get('http://localhost:8000/projects/' + id).subscribe(data => {
+    this.httpService.get('http://localhost:8000/projects/' + id).subscribe(data => {
       this.projectName = data['name'];
     });
   }
@@ -22,14 +25,12 @@ export class UpdateprojectComponent implements OnInit {
   }
 
   updateProject() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
     let id = sessionStorage.getItem('projectId');
-    this.http.patch('http://localhost:8000/projects/' + id, {name: this.projectName}, httpOptions).subscribe(data => {
+
+    let url = 'http://localhost:8000/projects/' + id;
+    let payload = {name: this.projectName};
+
+    this.httpService.patch(url, payload).subscribe(data => {
       this.router.navigate(['projects']);
     })
   }

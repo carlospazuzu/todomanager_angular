@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Router } from '@angular/router';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -12,10 +12,13 @@ export class CreateactivityComponent implements OnInit {
   activityName: string;
   projectList: [] = [];
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private httpService: HttpService, private router: Router) {
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+   }
 
   ngOnInit() {
-    this.http.get('http://localhost:8000/projects/?limit=999').subscribe(data => {
+    this.httpService.get('http://localhost:8000/projects/?limit=999').subscribe(data => {
       this.projectList = data['results'];      
       // console.log(data['results']);
     });
@@ -24,18 +27,13 @@ export class CreateactivityComponent implements OnInit {
   createNewActivity() {
     let projectUrl = sessionStorage.getItem('project_url');
 
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
+    let url = 'http://localhost:8000/activities/';
+    let payload = {name: this.activityName, project: projectUrl};
 
-    this.http.post('http://localhost:8000/activities/', {name: this.activityName, project: projectUrl}, httpOptions).subscribe(data => {
-      console.log(data);
+    this.httpService.post(url, payload).subscribe(data => {
+      // console.log(data);
       this.router.navigate(['activities']);
     });
-
     
   }
 

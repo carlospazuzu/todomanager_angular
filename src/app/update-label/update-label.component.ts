@@ -1,5 +1,5 @@
+import { HttpService } from './../http.service';
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,10 +11,13 @@ export class UpdateLabelComponent implements OnInit {
 
   labelName: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private httpService: HttpService, private router: Router) {
+    if (sessionStorage.getItem('logged') !== 'SIM') 
+      this.router.navigate([''])
+      
     let id = sessionStorage.getItem('labelId');
-    console.log(id);
-    this.http.get('http://localhost:8000/labels/' + id).subscribe(data => {
+    // console.log(id);
+    this.httpService.get('http://localhost:8000/labels/' + id).subscribe(data => {
       this.labelName = data['name'];
     });
   }
@@ -23,14 +26,12 @@ export class UpdateLabelComponent implements OnInit {
   }
 
   updateLabel() {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type':  'application/json',
-        'Authorization': 'Bearer ' + sessionStorage.getItem('token')
-      })
-    };
     let id = sessionStorage.getItem('labelId');
-    this.http.patch('http://localhost:8000/labels/' + id + "/", {name: this.labelName}, httpOptions).subscribe(data => {
+
+    let url = 'http://localhost:8000/labels/' + id + "/";
+    let payload = {name: this.labelName};
+    
+    this.httpService.patch(url, payload).subscribe(data => {
       this.router.navigate(['projects']);
     }, err => console.log(err))
   }
